@@ -1,6 +1,6 @@
-
 import 'package:flutter/material.dart';
 import 'package:food_app/utils/dimensions.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class ExpandableText extends StatefulWidget {
   final String text;
@@ -40,13 +40,16 @@ class _ExpandableTextState extends State<ExpandableText> {
       child: secondHalf.isEmpty
           ? Text(
               firstHalf,
+              style: GoogleFonts.poppins(
+                fontSize: Dimensions.font15 - 1,
+              ),
             )
           : Column(
               children: [
-                Text(
-                  hiddenText ? ('$firstHalf...') : (firstHalf + secondHalf),
-                  style: TextStyle(fontSize: Dimensions.font15),
-                ),
+                Text(hiddenText ? ('$firstHalf...') : (firstHalf + secondHalf),
+                    style: GoogleFonts.poppins(
+                      fontSize: Dimensions.font15 - 1,
+                    )),
                 InkWell(
                   onTap: () {
                     setState(() {

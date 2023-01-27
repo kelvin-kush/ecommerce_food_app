@@ -20,6 +20,7 @@ class _OTPState extends State<OTP> {
   final pinController = TextEditingController();
   final focusNode = FocusNode();
   final formKey = GlobalKey<FormState>();
+
   @override
   void dispose() {
     pinController.dispose();
@@ -93,7 +94,7 @@ class _OTPState extends State<OTP> {
                   ),
                   SizedBox(height: Dimensions.height20),
                   Text(
-                    'To further ensure security, a One-Time Password(OTP) has been sent via your registered mobile number',
+                    'To further ensure security, a One-Time Password(OTP) has been sent via your registered phone number ${AuthController.phoneNumber}',
                     style: GoogleFonts.poppins(
                       fontSize: 14,
                     ),
@@ -207,7 +208,7 @@ class _OTPState extends State<OTP> {
                             onPressed: () {
                               getUserPhoneSms();
                             },
-                            child: Text('SEND OTP')),
+                            child: Text('RESEND OTP')),
                       ],
                     ),
                   ),

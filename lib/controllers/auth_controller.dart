@@ -32,10 +32,10 @@ class AuthController extends GetxController implements GetxService {
   }
 
   Future<ResponseModel> login(
-      String phone, String email, String password) async {
+      String phone, String password) async {
     _isloading = true;
     update();
-    Response response = await authRepo.login(phone, email, password);
+    Response response = await authRepo.login(phone,  password);
     late ResponseModel responseModel;
 
     if (response.statusCode == 200) {

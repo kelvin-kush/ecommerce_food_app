@@ -11,6 +11,7 @@ import 'package:food_app/utils/app_constants.dart';
 import 'package:food_app/utils/dimensions.dart';
 import 'package:food_app/widgets/icon.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../../widgets/expandableText.dart';
 
@@ -98,9 +99,10 @@ class RecommendedFoodDetail extends StatelessWidget {
                     child: Center(
                         child: Text(
                       product.name!,
-                      style: TextStyle(
+                      style: GoogleFonts.poppins(
                           fontSize: Dimensions.font20,
-                          color: Colors.green[100]),
+                          fontWeight: FontWeight.w500,
+                          color: AppColor.appMainColor),
                     ))),
               ),
               backgroundColor: Colors.green[100],
@@ -117,14 +119,22 @@ class RecommendedFoodDetail extends StatelessWidget {
                 ),
               )),
           SliverToBoxAdapter(
-            child: Column(
-              children: [
-                Container(
-                  child: ExpandableText(
+            child: Container(
+              padding: EdgeInsets.only(left: 10, right: 10),
+              child: Column(
+                //crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Description',
+                    style: GoogleFonts.poppins(
+                        fontSize: Dimensions.font15,
+                        fontWeight: FontWeight.w600),
+                  ),
+                  ExpandableText(
                     text: product.description!,
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           )
         ],

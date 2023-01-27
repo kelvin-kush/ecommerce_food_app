@@ -12,7 +12,7 @@ import 'package:get/get.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await dep.init();
-  //await Get.find<CartController>().getCartHistoryList();
+  await Get.find<CartController>().getCartHistoryList();
   runApp(const MyApp());
 }
 
@@ -27,9 +27,9 @@ class MyApp extends StatelessWidget {
           return GetMaterialApp(
             title: 'Flutter Demo',
             debugShowCheckedModeBanner: false,
-              home: OTP(),
-            //  initialRoute: RouteHelper.getSplashScreen(),
-            //  getPages: RouteHelper.routes,
+              //home: OTP(),
+              initialRoute: RouteHelper.getSplashScreen(),
+              getPages: RouteHelper.routes,
           );
         });
       },

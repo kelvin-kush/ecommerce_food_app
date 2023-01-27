@@ -18,7 +18,6 @@ class CartPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       body: Stack(children: [
         Positioned(
@@ -50,11 +49,11 @@ class CartPage extends StatelessWidget {
                     backhroundColor: AppColor.appMainColor,
                   ),
                 ),
-                AppIcon(
-                  icon: Icons.shopping_cart,
-                  iconColor: Colors.white,
-                  backhroundColor: AppColor.appMainColor,
-                )
+                // AppIcon(
+                //   icon: Icons.shopping_cart,
+                //   iconColor: Colors.white,
+                //   backhroundColor: AppColor.appMainColor,
+                // )
               ],
             )),
         Positioned(
@@ -67,7 +66,6 @@ class CartPage extends StatelessWidget {
                 // color: Colors.red,
                 child: GetBuilder<CartController>(
                   builder: (cartController) {
-                    
                     var cartList = cartController.getItems;
 
                     return cartController.getItems.isEmpty
@@ -317,7 +315,7 @@ class CartPage extends StatelessWidget {
                             onTap: () {
                               if (Get.find<AuthController>().userLogedIn()) {
                                 cartcontroller.addToCartHistoryList();
-                               // cartcontroller.addToCart();
+                                // cartcontroller.addToCart();
                               } else {
                                 Get.toNamed(RouteHelper.getSignIn());
                               }

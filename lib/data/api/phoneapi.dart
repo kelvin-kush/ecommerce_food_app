@@ -33,9 +33,9 @@ class PhoneApiClient extends GetConnect implements GetxService {
       {Map<String, String>? headers}) async {
     print(body.toString());
     try {
-      // Response response = await post('$uri?phoneNumber=${AuthController.phoneNumber}', body, headers: _mainHeaders);
-      Response response = await post('$uri?phoneNumber=0558298737', body,
-          headers: _mainHeaders);
+      Response response = await post('$uri?phoneNumber=${AuthController.phoneNumber}', body, headers: _mainHeaders);
+      // Response response = await post('$uri?phoneNumber=0558298737', body,
+      //     headers: _mainHeaders);
       print(response.toString());
       return response;
     } catch (e) {

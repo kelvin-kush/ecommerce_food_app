@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:food_app/base/loader.dart';
 import 'package:food_app/base/show_message.dart';
 import 'package:food_app/controllers/auth_controller.dart';
+import 'package:food_app/controllers/phone_controller.dart';
 import 'package:food_app/models/signup_model.dart';
 import 'package:food_app/pages/auth/signin_page.dart';
 import 'package:food_app/routes/route_helper.dart';
@@ -36,13 +37,13 @@ class _SignUpPageState extends State<SignUpPage> {
     'ff.png',
     'g.png',
   ];
-  void _registration() {
+  Future<void> _registration() async {
     AuthController authcontroller = Get.find<AuthController>();
     String email = emailController.text.trim();
     String password = passwordController.text.trim();
     String name = nameController.text.trim();
     String phone = phoneController.text.trim();
-    AuthController.phoneNumber = phone;
+   
     if (name.isEmpty) {
       showCustomSnackBar('Type in your name', title: 'Name');
     } else if (phone.isEmpty) {
@@ -57,13 +58,16 @@ class _SignUpPageState extends State<SignUpPage> {
       showCustomSnackBar('Password can\'t be less than six characters',
           title: 'Password');
     } else {
+      
       SignUpBody signUpBody = SignUpBody(
           name: name, phone: phone, email: email, password: password);
-      authcontroller.registration(signUpBody).then((status) {
+    await  authcontroller.registration(signUpBody).then((status) async {
         if (status.isSuccess) {
           //  print('Successful Registration');
-          showCustomSnackBar('Successful Registration', title: 'Success');
-
+          successCustomSnackBar('Successful Registration', title: 'Success');
+          AuthController.phoneNumber = phone;
+         PhoneController phonecontroller = Get.find<PhoneController>();
+          await phonecontroller.getUserPhoneSms();
           Get.toNamed(RouteHelper.otpPage);
         } else if (status.message == 'Forbidden') {
           showCustomSnackBar('Account already exist');

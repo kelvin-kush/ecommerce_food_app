@@ -10,6 +10,7 @@ import 'package:food_app/utils/app_constants.dart';
 import 'package:food_app/utils/dimensions.dart';
 import 'package:food_app/widgets/buildPageItem.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 var curPageValue = 0.0;
 double scaleFactor = 0.8;
@@ -72,7 +73,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                 : popularProducts.popProductList.length,
             position: curPageValue,
             decorator: DotsDecorator(
-              activeColor:AppColor.appMainColor,
+              activeColor: AppColor.appMainColor,
               size: const Size.square(9.0),
               activeSize: const Size(18.0, 9.0),
               activeShape: RoundedRectangleBorder(
@@ -87,7 +88,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
               padding: const EdgeInsets.all(8),
               child: Text(
                 'Recommended',
-                style: TextStyle(
+                style: GoogleFonts.poppins(
                     fontSize: Dimensions.font20,
                     fontWeight: FontWeight.bold,
                     color: AppColor.appMainColor),
@@ -160,9 +161,41 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                                           child: Column(
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceEvenly,
                                             children: [
                                               Text(
-                                                  '${recommendedProducts.recommendedProductList[index].name}')
+                                                '${recommendedProducts.recommendedProductList[index].name}',
+                                                style: GoogleFonts.poppins(
+                                                    fontSize:
+                                                        Dimensions.font15),
+                                              ),
+                                              Text(
+                                                  '${recommendedProducts.recommendedProductList[index].location}',
+                                                  style: GoogleFonts.poppins(
+                                                      color: Colors.grey,
+                                                      fontSize:
+                                                          Dimensions.font15 -
+                                                              2)),
+                                              Row(
+                                                children: [
+                                                  Wrap(
+                                                    children: List.generate(
+                                                        recommendedProducts
+                                                            .recommendedProductList[
+                                                                index]
+                                                            .stars!,
+                                                        (index) => Icon(
+                                                              Icons.star,
+                                                              color: AppColor
+                                                                  .appMainColor,
+                                                            )),
+                                                  ),
+                                                  SizedBox(
+                                                    width: 10,
+                                                  ),
+                                                ],
+                                              ),
                                             ],
                                           ),
                                         )),

@@ -33,15 +33,10 @@ class _SignInPageState extends State<SignInPage> {
 
     void _login() {
       AuthController authcontroller = Get.find<AuthController>();
-      String email = emailController.text.trim();
       String password = passwordController.text.trim();
       String phone = phoneController.text.trim();
 
-      if (email.isEmpty) {
-        showCustomSnackBar('Type in your email', title: 'Email');
-      } else if (!GetUtils.isEmail(email)) {
-        showCustomSnackBar('Type in a valid email address', title: 'Email');
-      } else if (password.isEmpty) {
+      if (password.isEmpty) {
         showCustomSnackBar('Type in your password', title: 'Password');
       } else if (password.length < 6) {
         showCustomSnackBar('Password can\'t be less than six characters',
@@ -49,7 +44,7 @@ class _SignInPageState extends State<SignInPage> {
       } else if (phone.isEmpty) {
         showCustomSnackBar('Type in your phone number', title: 'Phone');
       } else {
-        authcontroller.login(phone, email, password).then((status) {
+        authcontroller.login(phone,  password).then((status) {
           if (status.isSuccess) {
             successCustomSnackBar('Login Successful', title: 'Success');
             Get.toNamed(RouteHelper.getInitial());
@@ -113,12 +108,7 @@ class _SignInPageState extends State<SignInPage> {
                     SizedBox(
                       height: Dimensions.height30,
                     ),
-                    AppTextField(
-                      keyboardtype: TextInputType.emailAddress,
-                      controller: emailController,
-                      text: 'Email',
-                      iconData: Icons.email,
-                    ),
+                   
                     SizedBox(
                       height: Dimensions.height15,
                     ),

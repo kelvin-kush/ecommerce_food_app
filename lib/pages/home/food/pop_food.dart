@@ -6,11 +6,13 @@ import 'package:food_app/controllers/popular_product_controller.dart';
 import 'package:food_app/pages/cart/cart_page.dart';
 import 'package:food_app/pages/home/main_food_page.dart';
 import 'package:food_app/routes/route_helper.dart';
+import 'package:food_app/utils/app_colors.dart';
 import 'package:food_app/utils/app_constants.dart';
 import 'package:food_app/utils/dimensions.dart';
 import 'package:food_app/widgets/expandableText.dart';
 import 'package:food_app/widgets/icon.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class PopFoodDetail extends StatelessWidget {
   final int pageId;
@@ -73,17 +75,16 @@ class PopFoodDetail extends StatelessWidget {
                               top: 0,
 
                               child: AppIcon(
-                                icon: Icons.circle,
-                                size: Dimensions.height20,
-                                iconColor: Colors.transparent,
-                                backhroundColor: Colors.green[100],
-                              ),
+                                  icon: Icons.circle,
+                                  size: Dimensions.height20,
+                                  iconColor: Colors.transparent,
+                                  backhroundColor: AppColor.appMainColor),
                               // ),
                             )
                           : Container(),
                       controller.totalItems >= 1
                           ? Positioned(
-                              right: 5,
+                              right: 6,
                               top: 3,
                               child: Text(
                                 '${Get.find<PopProdController>().totalItems}',
@@ -114,7 +115,10 @@ class PopFoodDetail extends StatelessWidget {
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(product.name!),
+                    Text(product.name!,
+                        style: GoogleFonts.poppins(
+                            fontSize: Dimensions.font20,
+                            fontWeight: FontWeight.w600)),
                     SizedBox(
                       height: Dimensions.height10,
                     ),
@@ -122,10 +126,10 @@ class PopFoodDetail extends StatelessWidget {
                       children: [
                         Wrap(
                           children: List.generate(
-                              5,
+                              product.stars!,
                               (index) => Icon(
                                     Icons.star,
-                                    color: Colors.green[100],
+                                    color: AppColor.appMainColor,
                                   )),
                         ),
                       ],
@@ -133,9 +137,11 @@ class PopFoodDetail extends StatelessWidget {
                     SizedBox(
                       height: Dimensions.height10,
                     ),
-                    const Text('Introduce'),
-                    SizedBox(
-                      height: Dimensions.height10,
+                    Text(
+                      'Description',
+                      style: GoogleFonts.poppins(
+                          fontSize: Dimensions.font15,
+                          fontWeight: FontWeight.w600),
                     ),
                     Expanded(
                       child: SingleChildScrollView(
@@ -145,66 +151,130 @@ class PopFoodDetail extends StatelessWidget {
                   ]),
             )),
       ]),
-      bottomNavigationBar: GetBuilder<PopProdController>(
-        builder: (popProduct) {
-          return Container(
-              height: Dimensions.height100,
-              padding: EdgeInsets.fromLTRB(Dimensions.width20,
-                  Dimensions.height30, Dimensions.width20, Dimensions.height30),
-              decoration: BoxDecoration(
-                color: Colors.grey[100],
-                borderRadius: BorderRadius.circular(Dimensions.radius20 * 2),
+     
+      bottomNavigationBar: GetBuilder<PopProdController>(builder: (popProduct) {
+        return Container(
+          decoration: BoxDecoration(
+              color: Colors.grey[200],
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(Dimensions.radius30),
+                  topRight: Radius.circular(Dimensions.radius30))),
+          child: Column(
+            
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              SizedBox(
+                height: Dimensions.height10,
               ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Container(
-                    //  padding: EdgeInsets.all(10),
-                    width: 100,
-                    height: 200,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(Dimensions.height20),
-                      color: Colors.white,
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        GestureDetector(
-                            onTap: () {
-                              popProduct.setQuantity(false);
-                            },
-                            child: const Icon(Icons.remove)),
-                        Text(popProduct.inCarItems.toString()),
-                        GestureDetector(
-                            onTap: () {
-                              popProduct.setQuantity(true);
-                            },
-                            child: const Icon(Icons.add)),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    height: 200,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      color: Colors.green[100],
-                    ),
-                    padding: const EdgeInsets.all(8),
-                    child: GestureDetector(
-                      onTap: () {
-                        popProduct.addItem(product);
-                      },
-                      child: Text(
-                        '\$${product.price} | Add to cart',
+              RichText(
+                text: TextSpan(
+                    text: '  Price per plate: ',
+                    style: TextStyle(
+                        fontSize: Dimensions.font20, color: Colors.black),
+                    children: [
+                      TextSpan(
+                        text: '\$${product.price}',
                         style: TextStyle(
-                            color: Colors.white, fontSize: Dimensions.font20),
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontSize: Dimensions.font20),
+                      ),
+                    ]),
+              ),
+              
+              SizedBox(
+                height: Dimensions.height10,
+              ),
+              Row(
+               
+                children: [
+                  Column(
+                    children: [
+                      Row(
+                        children: [
+                          Text('  Num of plates : ',
+                              style: TextStyle(fontSize: Dimensions.font20)),
+                         
+                          Container(
+                          
+                            width: Dimensions.width10 * 8,
+                            height: Dimensions.height30,
+                            decoration: BoxDecoration(
+                              borderRadius:
+                                  BorderRadius.circular(Dimensions.height20),
+                              color: Colors.white,
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                GestureDetector(
+                                    onTap: () {
+                                      popProduct.setQuantity(false);
+                                    },
+                                    child: const Icon(Icons.remove)),
+                                Text(
+                                  popProduct.inCarItems.toString(),
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: Dimensions.font20),
+                                ),
+                                GestureDetector(
+                                    onTap: () {
+                                      popProduct.setQuantity(true);
+                                    },
+                                    child: const Icon(Icons.add)),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: Dimensions.height15,
+                      )
+                    ],
+                  ),
+                ],
+              ),
+             
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      popProduct.addItem(product);
+                    },
+                    child: Container(
+                      // width: Dimensions.width10,
+                      //  height: Dimensions.height45,
+                      decoration: BoxDecoration(
+                          color: AppColor.appMainColor,
+                          borderRadius: BorderRadius.all(Radius.circular(20))),
+                      padding: EdgeInsets.all(10),
+                      child: Text(
+                        ' Add to cart',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: Dimensions.font20,
+                            fontWeight: FontWeight.bold),
                       ),
                     ),
+                  ),
+                  SizedBox(
+                    width: Dimensions.width15,
                   )
                 ],
-              ));
-        },
-      ),
+              ),
+              SizedBox(
+                height: Dimensions.height15,
+              )
+              //       ],
+              //     )),
+            ],
+          ),
+        );
+      }),
     );
   }
 }

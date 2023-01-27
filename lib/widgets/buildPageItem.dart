@@ -7,6 +7,7 @@ import 'package:food_app/utils/app_constants.dart';
 import 'package:food_app/utils/dimensions.dart';
 import 'package:food_app/widgets/food_page_body.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 Widget buildPageItem(int index, ProductModel popProduct) {
   Matrix4 matrix = new Matrix4.identity();
@@ -95,15 +96,18 @@ Widget buildPageItem(int index, ProductModel popProduct) {
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(popProduct.name ?? ''),
+                    Text(
+                      popProduct.name!,
+                      style: GoogleFonts.poppins(fontSize: Dimensions.font15),
+                    ),
                     SizedBox(
-                      height: 10,
+                      height: 10 - 5,
                     ),
                     Row(
                       children: [
                         Wrap(
                           children: List.generate(
-                              5,
+                              popProduct.stars!,
                               (index) => Icon(
                                     Icons.star,
                                     color: AppColor.appMainColor,
@@ -113,6 +117,14 @@ Widget buildPageItem(int index, ProductModel popProduct) {
                           width: 10,
                         ),
                       ],
+                    ),
+                    SizedBox(
+                      height: Dimensions.height10 - 5,
+                    ),
+                    Text(
+                      popProduct.location!,
+                      style: GoogleFonts.poppins(
+                          fontSize: Dimensions.font15 - 2, color: Colors.grey),
                     )
                   ]),
             ),
