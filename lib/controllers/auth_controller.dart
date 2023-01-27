@@ -11,7 +11,7 @@ class AuthController extends GetxController implements GetxService {
 
   bool _isloading = false;
   bool get isloading => _isloading;
-
+  static String phoneNumber = '';
   Future<ResponseModel> registration(SignUpBody signUpBody) async {
     _isloading = true;
     update();
@@ -22,6 +22,7 @@ class AuthController extends GetxController implements GetxService {
       authRepo.saveUserToken(response.body['token']);
 
       responseModel = ResponseModel(true, response.body['token']);
+     // phoneNumber = signUpBody.phone;
     } else {
       responseModel = ResponseModel(false, response.statusText!);
     }

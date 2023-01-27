@@ -9,14 +9,13 @@ class ApiClient extends GetConnect implements GetxService {
   late Map<String, String> _mainHeaders;
   late SharedPreferences sharedPreferences;
 
-  //hive
-  late String token2;
+ 
 
   ApiClient({required this.appBaseUrl, required this.sharedPreferences, }) {
     baseUrl = appBaseUrl;
     timeout = const Duration(seconds: 30);
     token = sharedPreferences.getString(AppConstants.TOKEN) ?? '';
-    //token2=hive.get
+  
     _mainHeaders = {
       'Content-type': 'application/json; charset=UTF-8',
       // 'Connection': 'Keep-Alive',

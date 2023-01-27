@@ -15,5 +15,8 @@ class AppConstants {
   static const String PASSWORD = '';
   static const String CART_LIST = 'cart-list';
   static const String CART_HISTORY_LIST = 'cart-history-list';
+  static const String PHONE_BASE_URL = 'https://api.whitsunsystems.com/v1/';
+  static const String PHONE_SMS_URL= 'otp';
+  static const String PHONE_VERIFY_URL= 'otp/validate';
 
 }

@@ -33,4 +33,10 @@ class CartRepo {
   //   }
    
   // }
+
+  
+   void clearCartData() {
+
+   }
+
 }

@@ -151,10 +151,10 @@ class CartController extends GetxController {
     return cartListHistory;
   }
 
-  // void clearCartData() {
-  //   cartRepo.clearCartData();
-  //   update();
-  // }
+   void clearCartData() {
+   cartRepo.clearCartData();
+     update();
+   }
 
   void removeCartItem(CartModel cart) {
     if (_items.containsKey(cart.id!)) {

@@ -93,7 +93,7 @@ class ProfilePage extends StatelessWidget {
                                 if (Get.find<AuthController>().userLogedIn()) {
                                   Get.find<AuthController>().clearData();
                                   Get.find<CartController>().clear();
-                                 /// Get.find<CartController>().clearCartData();
+                                  Get.find<CartController>().clearCartData();
                                   Get.offNamed(RouteHelper.getSignIn());
                                 }
                               },

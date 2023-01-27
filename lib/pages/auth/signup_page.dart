@@ -42,7 +42,7 @@ class _SignUpPageState extends State<SignUpPage> {
     String password = passwordController.text.trim();
     String name = nameController.text.trim();
     String phone = phoneController.text.trim();
-
+    AuthController.phoneNumber = phone;
     if (name.isEmpty) {
       showCustomSnackBar('Type in your name', title: 'Name');
     } else if (phone.isEmpty) {
@@ -63,8 +63,8 @@ class _SignUpPageState extends State<SignUpPage> {
         if (status.isSuccess) {
           //  print('Successful Registration');
           showCustomSnackBar('Successful Registration', title: 'Success');
-          //Get.to(() => SignInPage(), transition: Transition.fade);
-          Get.offNamed(RouteHelper.signInPage);
+
+          Get.toNamed(RouteHelper.otpPage);
         } else if (status.message == 'Forbidden') {
           showCustomSnackBar('Account already exist');
         } else {

@@ -1,11 +1,14 @@
 import 'package:food_app/controllers/auth_controller.dart';
 import 'package:food_app/controllers/cart_controller.dart';
+import 'package:food_app/controllers/phone_controller.dart';
 import 'package:food_app/controllers/popular_product_controller.dart';
 import 'package:food_app/controllers/recommended_product_controller.dart';
 import 'package:food_app/controllers/user_controller.dart';
 import 'package:food_app/data/api/api.dart';
+import 'package:food_app/data/api/phoneapi.dart';
 import 'package:food_app/data/repository/auth_repo.dart';
 import 'package:food_app/data/repository/card_repo.dart';
+import 'package:food_app/data/repository/phone_repo.dart';
 import 'package:food_app/data/repository/popular_product_repo.dart';
 import 'package:food_app/data/repository/recommended_product_repo.dart';
 import 'package:food_app/data/repository/user_repo.dart';
@@ -20,12 +23,13 @@ Future<void> init() async {
   final sharedPreferences = await SharedPreferences.getInstance();
   Get.lazyPut(() => sharedPreferences);
 
- 
   //api Client
   Get.lazyPut(() => ApiClient(
-      appBaseUrl: AppConstants.BASE_URL,
-      sharedPreferences: Get.find(),
+        appBaseUrl: AppConstants.BASE_URL,
+        sharedPreferences: Get.find(),
       ));
+
+  Get.lazyPut(() => PhoneApiClient(appBaseUrl: AppConstants.PHONE_BASE_URL));
 
   //repos
   Get.lazyPut(
@@ -34,6 +38,7 @@ Future<void> init() async {
   Get.lazyPut(() => PopularProdRepo(apiClient: Get.find()));
   Get.lazyPut(() => RecommendedProdRepo(apiClient: Get.find()));
   Get.lazyPut(() => CartRepo(sharedPreferences: Get.find()));
+  Get.lazyPut(() => PhoneRepo(phoneApiClient: Get.find()));
 
   //controllers
   Get.lazyPut(() => AuthController(authRepo: Get.find()));
@@ -41,4 +46,5 @@ Future<void> init() async {
   Get.lazyPut(() => PopProdController(popularProdRepo: Get.find()));
   Get.lazyPut(() => RecommendedProdController(recommendedProdRepo: Get.find()));
   Get.lazyPut(() => CartController(cartRepo: Get.find()));
+  Get.lazyPut(() => PhoneController(phoneRepo: Get.find()));
 }
