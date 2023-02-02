@@ -1,6 +1,7 @@
 import 'package:hive_flutter/adapters.dart';
 
 
+
 class Product {
   int? _totalSize;
   int? _typeId;
@@ -43,27 +44,45 @@ class Product {
   // }
 }
 
-@HiveType(typeId: 2)
-class ProductModel extends HiveObject {
-  @HiveField(0)
+final String productTable = 'product';
+
+class ProductFields {
+ static final String id = 'id';
+  static final String name = 'name';
+ static final String description= 'description';
+  static final String price = 'price';
+  static final String stars = 'stars';
+  static final String img = 'img';
+   static final String location = 'location';
+  static final String createdAt = 'createdAt';
+  static final String updatedAt = 'updatedAt';
+  static final String typeId = 'typeId';
+  
+   static final List<String> allFields = [
+    id,
+    name,
+    description,
+    price,
+    stars,
+    img,
+    location,
+    createdAt,
+    updatedAt,
+    typeId
+  ];
+}
+
+
+class ProductModel  {
   int? id;
-  @HiveField(1)
   String? name;
-  @HiveField(2)
   String? description;
-  @HiveField(3)
   int? price;
-  @HiveField(4)
   int? stars;
-  @HiveField(5)
   String? img;
-  @HiveField(6)
   String? location;
-  @HiveField(7)
   String? createdAt;
-  @HiveField(8)
   String? updatedAt;
-  @HiveField(9)
   int? typeId;
 
   ProductModel(
@@ -86,9 +105,9 @@ class ProductModel extends HiveObject {
     stars = json['stars'];
     img = json['img'];
     location = json['location'];
-    createdAt = json['created_at'];
-    updatedAt = json['updated_at'];
-    typeId = json['type_id'];
+    createdAt = json['createdAt'];
+    updatedAt = json['updatedAt'];
+    typeId = json['typeId'];
   }
 
   Map<String, dynamic> toJson() {
@@ -100,9 +119,9 @@ class ProductModel extends HiveObject {
       'stars': stars,
       'img': img,
       'location': location,
-      'created_at': createdAt,
-      'updated_at': updatedAt,
-      'type_id': typeId,
+      'createdAt': createdAt,
+      'updatedAt': updatedAt,
+      'typeId': typeId,
     };
   }
 }

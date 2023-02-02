@@ -5,6 +5,7 @@ import 'package:food_app/utils/app_constants.dart';
 import 'package:food_app/utils/dimensions.dart';
 import 'package:food_app/widgets/icon.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
 class CartHistory extends StatefulWidget {
@@ -53,7 +54,14 @@ class _CartHistoryState extends State<CartHistory> {
           'Cart History',
           style: TextStyle(color: Colors.white, fontSize: 24),
         ),
-        actions: [Icon(Icons.history_sharp, size: Dimensions.height45 - 10)],
+        actions: [
+          TextButton(
+              onPressed: () {},
+              child: Text(
+                'clear cart History',
+                style: GoogleFonts.poppins(),
+              ))
+        ],
       ),
       body: Column(
         children: [

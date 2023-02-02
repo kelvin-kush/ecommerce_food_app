@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:food_app/base/show_message.dart';
 import 'package:food_app/data/repository/card_repo.dart';
 import 'package:food_app/database/cart_database.dart';
 import 'package:food_app/models/cart_model.dart';
@@ -151,10 +152,18 @@ class CartController extends GetxController {
     return cartListHistory;
   }
 
-   void clearCartData() {
-   cartRepo.clearCartData();
-     update();
-   }
+  deleteAllCartHistory() async {
+    try {
+      await CartDatabase.instance.deleteAllCarts();
+    } catch (e) {
+      showCustomSnackBar(e.toString());
+    }
+  }
+
+  void clearCartData() {
+    cartRepo.clearCartData();
+    update();
+  }
 
   void removeCartItem(CartModel cart) {
     if (_items.containsKey(cart.id!)) {

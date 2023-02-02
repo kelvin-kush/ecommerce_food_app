@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:food_app/base/show_message.dart';
 import 'package:food_app/controllers/cart_controller.dart';
 import 'package:food_app/data/repository/popular_product_repo.dart';
+import 'package:food_app/database/cart_database.dart';
 import 'package:food_app/models/cart_model.dart';
 import 'package:food_app/models/product_model.dart';
 import 'package:get/get.dart';
@@ -12,6 +14,7 @@ class PopProdController extends GetxController {
 
   List<ProductModel> _popProductList = [];
   List<ProductModel> get popProductList => _popProductList;
+  List<ProductModel> productsFromDatabase = [];
   late CartController _cart;
 
   String errorMessage = '';
@@ -34,6 +37,10 @@ class PopProdController extends GetxController {
         _popProductList.addAll(Product.fromJson(response.body).products);
         // print(popProductList);
         //_isLoaded = true;
+        createProductsDatabase(_popProductList);
+
+        print('products in _popProductList${_popProductList}');
+
         error = false;
       } catch (e) {
         error = true;
@@ -123,5 +130,37 @@ class PopProdController extends GetxController {
 
   List<CartModel> get getItems {
     return _cart.getItems;
+  }
+
+  createProductsDatabase(List<ProductModel> produCts) async {
+    await deleteAllProducts();
+    productsFromDatabase = [];
+    try {
+      for (int i = 0; i < produCts.length; i++) {
+        await CartDatabase.instance.createProductsDatabase(produCts[i]);
+      }
+    } catch (e) {
+      showCustomSnackBar(e.toString());
+    }
+    await getAllProducts();
+  }
+
+  Future<List<ProductModel>> getAllProducts() async {
+    productsFromDatabase = [];
+    try {
+      productsFromDatabase = await CartDatabase.instance.getAllProducts();
+    } catch (e) {
+      showCustomSnackBar(e.toString());
+    }
+    print('products in database${productsFromDatabase}');
+    return productsFromDatabase;
+  }
+
+  deleteAllProducts() async {
+    try {
+      await CartDatabase.instance.deleteAllProducts();
+    } catch (e) {
+      showCustomSnackBar(e.toString());
+    }
   }
 }
