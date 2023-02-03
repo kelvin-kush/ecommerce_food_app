@@ -49,27 +49,41 @@ class _FoodPageBodyState extends State<FoodPageBody> {
       children: [
         GetBuilder<PopProdController>(builder: (popularProducts) {
           return popularProducts.popProductList.isEmpty &&
-                  !popularProducts.error
+                  !popularProducts.error &&
+                  popularProducts.productsFromDatabase.isEmpty
               ? CustomLoader(
                   //  color: Colors.green[100],
                   )
-              : popularProducts.error
-                  ? Text(popularProducts.errorMessage)
-                  : SizedBox(
+              : popularProducts.popProductList.isEmpty &&
+                      popularProducts.productsFromDatabase.isNotEmpty
+                  ? SizedBox(
                       height: Dimensions.pageView,
                       child: PageView.builder(
                           controller: pageController,
-                          itemCount: popularProducts.popProductList.length,
+                          itemCount:
+                              popularProducts.productsFromDatabase.length,
                           itemBuilder: ((context, index) {
-                            return buildPageItem(
-                                index, popularProducts.popProductList[index]);
+                            return buildPageItem(index,
+                                popularProducts.productsFromDatabase[index]);
                           })),
-                    );
+                    )
+                  : popularProducts.error
+                      ? Text(popularProducts.errorMessage)
+                      : SizedBox(
+                          height: Dimensions.pageView,
+                          child: PageView.builder(
+                              controller: pageController,
+                              itemCount: popularProducts.popProductList.length,
+                              itemBuilder: ((context, index) {
+                                return buildPageItem(index,
+                                    popularProducts.popProductList[index]);
+                              })),
+                        );
         }),
         GetBuilder<PopProdController>(builder: (popularProducts) {
           return DotsIndicator(
             dotsCount: popularProducts.popProductList.isEmpty
-                ? 1
+                ? popularProducts.productsFromDatabase.length
                 : popularProducts.popProductList.length,
             position: curPageValue,
             decorator: DotsDecorator(

@@ -158,6 +158,8 @@ class CartController extends GetxController {
     } catch (e) {
       showCustomSnackBar(e.toString());
     }
+    cartListHistory = [];
+    update();
   }
 
   void clearCartData() {

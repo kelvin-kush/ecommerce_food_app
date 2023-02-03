@@ -18,7 +18,7 @@ class ApiClient extends GetConnect implements GetxService {
   
     _mainHeaders = {
       'Content-type': 'application/json; charset=UTF-8',
-      // 'Connection': 'Keep-Alive',
+      "Connection": "Keep-Alive",
       // "Keep-Alive": "timeout=5, max=1000",
       'Authorization': 'Bearer $token',
     };

@@ -27,33 +27,28 @@ class PopProdController extends GetxController {
   int get inCarItems => _inCarItems + _quantity;
 
   Future<void> getPopProdList() async {
-    Response response = await popularProdRepo.getPopularProdList();
-    if (response.statusCode == 200) {
-      try {
-        // print('Got products');
-        _popProductList = [];
+    try {
+      Response response = await popularProdRepo.getPopularProdList();
+      if (response.statusCode == 200) {
+        // _popProductList = [];
 
-        // _popProductList.addAll(jsonDecode(response.body));
         _popProductList.addAll(Product.fromJson(response.body).products);
-        // print(popProductList);
-        //_isLoaded = true;
-        createProductsDatabase(_popProductList);
 
         print('products in _popProductList${_popProductList}');
 
         error = false;
-      } catch (e) {
+        await createProductsDatabase(_popProductList);
+      } else {
         error = true;
-        errorMessage = e.toString();
-        _popProductList = [];
+
+        errorMessage = 'Please check your internet connection';
+        //  _popProductList = [];
+        await getAllProducts();
       }
-    } else {
-      error = true;
-      // _isLoaded = false;
-      errorMessage = 'Please check your internet connection';
-      _popProductList = [];
+      update();
+    } catch (e) {
+      errorMessage = e.toString();
     }
-    update();
   }
 
   void setQuantity(bool isIncreament) {
@@ -134,7 +129,6 @@ class PopProdController extends GetxController {
 
   createProductsDatabase(List<ProductModel> produCts) async {
     await deleteAllProducts();
-    productsFromDatabase = [];
     try {
       for (int i = 0; i < produCts.length; i++) {
         await CartDatabase.instance.createProductsDatabase(produCts[i]);
@@ -146,7 +140,6 @@ class PopProdController extends GetxController {
   }
 
   Future<List<ProductModel>> getAllProducts() async {
-    productsFromDatabase = [];
     try {
       productsFromDatabase = await CartDatabase.instance.getAllProducts();
     } catch (e) {

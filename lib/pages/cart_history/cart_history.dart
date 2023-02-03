@@ -56,10 +56,13 @@ class _CartHistoryState extends State<CartHistory> {
         ),
         actions: [
           TextButton(
-              onPressed: () {},
+              onPressed: () {
+                Get.find<CartController>().deleteAllCartHistory();
+              },
               child: Text(
                 'clear cart History',
-                style: GoogleFonts.poppins(),
+                style: GoogleFonts.poppins(
+                    color: Colors.red, fontSize: Dimensions.font15),
               ))
         ],
       ),
